@@ -15,6 +15,10 @@ namespace platzi_asp_net_core.Controllers
             escuela.AñoDeCreación = 2005;
             escuela.UniqueId = Guid.NewGuid().ToString();
             escuela.Nombre = "Platzi School";
+            escuela.Pais = "México";
+            escuela.Ciudad = "CDMX";
+            escuela.Dirección = "Ciudad Universitaria";
+            escuela.TipoEscuela = TiposEscuela.Secundaria;
 
             ViewBag.CosaDinamica = "DEVELOPER";
 
