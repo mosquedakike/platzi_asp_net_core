@@ -8,11 +8,11 @@
 <h1> @ViewData["Title"]</h1>
 
 <strong>Desde la vista parcial</strong>
-<br />
+
 
 @foreach (var asignatura in Model)
 {
-    <partial name="AsignaturaSimple" model="asignatura"/>
+    <partial name="ObjetoEscuelaSimple" model="asignatura" />
 }
 
 
