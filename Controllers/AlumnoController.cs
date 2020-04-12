@@ -38,7 +38,10 @@ namespace platzi_asp_net_core.Controllers
             var listaAlumnos = from n1 in nombre1
                                from n2 in nombre2
                                from a1 in apellido1
-                               select new Alumno { Nombre = $"{n1} {n2} {a1}" };
+                               select new Alumno { Nombre = $"{n1} {n2} {a1}", 
+                                                   UniqueId = Guid.NewGuid().ToString() 
+                               };
+                               
 
             return listaAlumnos.OrderBy((al) => al.UniqueId).ToList();
         }
