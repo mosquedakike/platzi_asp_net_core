@@ -9,7 +9,6 @@ namespace platzi_asp_net_core.Controllers
 {
     public class EscuelaController : Controller
     {
-        private EscuelaContext _context;
         public IActionResult Index()
         {
             
@@ -17,6 +16,8 @@ namespace platzi_asp_net_core.Controllers
             var escuela = _context.Escuelas.FirstOrDefault();
             return View(escuela);
         }
+
+        private EscuelaContext _context;
 
         public EscuelaController(EscuelaContext context)
         {
