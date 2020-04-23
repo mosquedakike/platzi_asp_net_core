@@ -7,7 +7,7 @@ using platzi_asp_net_core.Models;
 
 namespace platzi_asp_net_core.Controllers
 {
-    public class AlumnoController : Controller
+    public class CursoController : Controller
     {
         /*
         [Route("Alumno/Index")]
@@ -30,30 +30,30 @@ namespace platzi_asp_net_core.Controllers
         {
             if (!string.IsNullOrWhiteSpace(id))
             {
-                var alumno = from alum in _context.Alumnos
-                             where alum.Id == id
-                             select alum;
-            return View(alumno.FirstOrDefault());
+                var curso = from cur in _context.Cursos
+                             where cur.Id == id
+                             select cur;
+            return View(curso.FirstOrDefault());
             }
             else
             {
-                return View("MultiAlumno", _context.Alumnos);
+                return View("MultiCurso", _context.Cursos);
             }
         }
 
-        public IActionResult MultiAlumno()
+        public IActionResult MultiCurso()
         {
 
         ViewBag.CosaDinamica = "DEVELOPER";
         ViewBag.Fecha = DateTime.UtcNow;
 
-        return View("MultiAlumno", _context.Alumnos);
+        return View("MultiCurso", _context.Cursos);
         }
 
 
         private EscuelaContext _context;
 
-        public AlumnoController(EscuelaContext context)
+        public CursoController(EscuelaContext context)
         {
             _context = context;
 

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Curso>
+
+@{
+    ViewData["Title"] = "MultiCurso";
+    Layout = "Simple";
+}
+
+<h1> @ViewData["Title"]</h1>
+
+<strong>Desde la vista parcial</strong>
+
+
+
+
+<table class="table table-dark table-hover">
+<thread>
+    <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Id</th>
+    </tr>
+</thread>
+<tbody>
+    @foreach (var alumno in Model)
+    {
+    <tr>
+        <td>@alumno.Nombre</td>
+        <td>@alumno.Id</td>
+    </tr>
+    }
+</tbody>
+</table>
+
+<p>@ViewBag.Fecha</p>
