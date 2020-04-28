@@ -9,7 +9,7 @@ namespace platzi_asp_net_core.Models
 
         public ObjetoEscuelaBase()
         {
-            
+           Id = Guid.NewGuid().ToString();   
         }
 
         public override string ToString()
