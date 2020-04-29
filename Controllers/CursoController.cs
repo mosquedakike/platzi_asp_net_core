@@ -67,12 +67,84 @@ namespace platzi_asp_net_core.Controllers
                 curso.EscuelaId = escuela.Id;
                 _context.Cursos.Add(curso);
                 _context.SaveChanges();
-                ViewBag.MensajeExtra="Curso Creado";
-                return View("Index",curso);
-            }else
+                ViewBag.MensajeExtra = "Curso Creado";
+                return View("Index", curso);
+            }
+            else
             {
                 return View(curso);
-            }  
+            }
+        }
+/*
+        [HttpPut]
+        public IActionResult Update(Curso curso)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Cursos.Update(curso);
+                _context.SaveChanges();
+                ViewBag.MensajeCrecion = "Curso Actualizado";
+                return View();
+            }
+            else
+            {
+                return View(curso);
+            }
+        }
+*/
+
+[Route("Curso/Update")]
+        [Route("Curso/Update/{cursoId}")]
+        public IActionResult Update(string cursoId)
+        {
+            var cursoResponse = from curso in _context.Cursos
+                where curso.Id == cursoId
+                select curso;
+
+            // validation: cursoId is available
+            if (string.IsNullOrWhiteSpace(cursoId)) return MultiCurso();
+            
+            return View(cursoResponse.SingleOrDefault());
+        }
+
+
+        [Route("Curso/Update/{cursoId}")]
+        [HttpPost]
+        public IActionResult UpdatePost(string cursoId, Curso cursoForm)
+        {   
+            var curso = _context.Cursos.Find(cursoId);
+            
+            // validating all required data
+            if (!ModelState.IsValid) return View("Update", curso);
+
+            // search and extract the course to be updated
+            // from db
+            var modelCurso = _context.Cursos
+                .SingleOrDefault(c => c.Id == cursoId);
+            
+            // updating fields
+            // in case curso does not exist
+            if (modelCurso == null) return MultiCurso();
+
+            modelCurso.Nombre = cursoForm.Nombre;
+            modelCurso.Dirección = cursoForm.Dirección;
+            modelCurso.Jornada = cursoForm.Jornada;
+            
+            // saving updated data
+            _context.SaveChanges();
+            
+            ViewBag.MensajeExtra = "Curso Actualizado con éxito!";
+            
+            // return to individual view(Note: Not method Index,
+            // Index view instead)
+            // add the course searched
+            return View("Index",curso);
+        }
+
+        public IActionResult Test()
+        {
+            ViewBag.Fecha = DateTime.Now;
+            return View();
         }
 
         private EscuelaContext _context;
