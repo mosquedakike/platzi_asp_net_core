@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MySQL.Data.EntityFrameworkCore;
 
 namespace platzi_asp_net_core.Models
 {
@@ -13,11 +14,16 @@ namespace platzi_asp_net_core.Models
         public DbSet<Alumno> Alumnos { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Evaluación> Evaluaciones { get; set; }
-     
+
         public EscuelaContext(DbContextOptions<EscuelaContext> options) : base(options)
         {
 
         }
+
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseMySQL("server=localhost:8888;database=platzi;user=root;password=root");
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,8 +61,8 @@ namespace platzi_asp_net_core.Models
             Random rnd = new Random();
             foreach (var curso in cursos)
             {
-                int cantRandom = rnd.Next(5,20);
-                var tmplist = GenerarAlumnosAlAzar(curso,cantRandom);
+                int cantRandom = rnd.Next(5, 20);
+                var tmplist = GenerarAlumnosAlAzar(curso, cantRandom);
                 listaAlumnos.AddRange(tmplist);
             }
             return listaAlumnos;
@@ -65,7 +71,7 @@ namespace platzi_asp_net_core.Models
         private static List<Asignatura> CargarAsignaturas(List<Curso> cursos)
         {
             var listaCompleta = new List<Asignatura>();
-            foreach (var curso in cursos)  
+            foreach (var curso in cursos)
             {
                 var tmpList = new List<Asignatura>(){
                     new Asignatura(){Id = Guid.NewGuid().ToString(), CursoId = curso.Id, Nombre = "Matemáticas" },
@@ -93,7 +99,7 @@ namespace platzi_asp_net_core.Models
         }
 
         private List<Alumno> GenerarAlumnosAlAzar(
-            Curso curso, 
+            Curso curso,
             int cantidad)
         {
             string[] nombre1 = { "Alba", "Felipa", "Eusebio", "Farid", "Donald", "Alvaro", "Nicolás" };

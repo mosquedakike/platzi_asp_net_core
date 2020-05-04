@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using platzi_asp_net_core.Models;
+using MySQL.Data.EntityFrameworkCore;
 
 namespace platzi_asp_net_core.Controllers
 {
@@ -11,8 +12,6 @@ namespace platzi_asp_net_core.Controllers
     {
         public IActionResult Index()
         {
-            
-            ViewBag.CosaDinamica = "DEVELOPER";
             var escuela = _context.Escuelas.FirstOrDefault();
             return View(escuela);
         }

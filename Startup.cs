@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using platzi_asp_net_core.Models;
 using Microsoft.EntityFrameworkCore;
+using MySQL.Data.EntityFrameworkCore;
 
 namespace platzi_asp_net_core
 {
@@ -26,9 +27,14 @@ namespace platzi_asp_net_core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<EscuelaContext>(
+            /*services.AddDbContext<EscuelaContext>(
                 options => options.UseInMemoryDatabase(databaseName:"testDB")
-                );
+                );*/
+            
+            string connString = ConfigurationExtensions.GetConnectionString(this.Configuration, "DefaultConnectionstring");
+            services.AddDbContext<EscuelaContext>(
+            options => options.UseMySQL(connString)
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
